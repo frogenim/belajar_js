@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penjualan Produk</title>
+</head>
+<body>
+    <form id="productSalesForm">
+        <label for="itemName">Name of the item:</label><br>
+        <input type="text" id="itemName" name="itemName" oninput="checkItemNameLength(this.value)"><br>
+        <div id="itemNameWarning" style="color:red;display:none;">*The length of the name must be more than 2 characters</div>
+        <label for="purchaseDate">Date of purchase:</label><br>
+        <input type="date" id="purchaseDate" name="purchaseDate"><br>
+        <label for="numItems">Quantity of items:</label><br>
+        <input type="number" id="numItems" name="numItems" oninput="calculateTotalPurchase()"><br>
+        <label for="itemPrice">Price of items (in rupiah):</label><br>
+        <input type="number" id="itemPrice" name="itemPrice" oninput="calculateTotalPurchase()"><br>
+        <label for="totalPurchase">Total purchase:</label><br>
+        <input type="number" id="totalPurchase" name="totalPurchase" readonly><br>
+        <button type="button" onclick="printOrder()">Order</button>
+      </form>
+      
+      <div id="orderProof" style="display:none;">
+        <h2>Order Proof</h2>
+        <p>Name of the item: <span id="orderProofItemName"></span></p>
+        <p>Date of purchase: <span id="orderProofPurchaseDate"></span></p>
+        <p>Quantity of items: <span id="orderProofNumItems"></span></p>
+        <p>Price of items: <span id="orderProofItemPrice"></span></p>
+        <p>Total purchase: <span id="orderProofTotalPurchase"></span></p>
+      </div>
+      
+      <script>
+        function checkItemNameLength(itemName) {
+          if (itemName.length < 2) {
+            document.getElementById('itemNameWarning').style.display = 'block';
+            document.getElementById('itemName').style.borderColor = 'red';
+          } else {
+            document.getElementById('itemNameWarning').style.display = 'none';
+            document.getElementById('itemName').style.borderColor = 'green';
+          }
+        }
+      
+        function calculateTotalPurchase() {
+          var numItems = document.getElementById('numItems').value;
+          var itemPrice = document.getElementById('itemPrice').value;
+          var totalPurchase = numItems * itemPrice;
+          document.getElementById('totalPurchase').value = totalPurchase;
+        }
+      
+        function printOrder() {
+          var itemName = document.getElementById('itemName').value;
+          var purchaseDate = document.getElementById('purchaseDate').value;
+          var numItems = document.getElementById('numItems').value;
+          var itemPrice = document.getElementById('itemPrice').value;
+          var totalPurchase = document.getElementById('totalPurchase').value;
+      
+          document.getElementById('orderProofItemName').textContent = itemName;
+          document.getElementById('orderProofPurchaseDate').textContent = purchaseDate;
+          document.getElementById('orderProofNumItems').textContent = numItems;
+          document.getElementById('orderProofItemPrice').textContent = itemPrice;
+          document.getElementById('orderProofTotalPurchase').textContent = totalPurchase;
+      
+          document.getElementById('orderProof').style.display = 'block';
+        }
+      </script>
+</body>
+</html>

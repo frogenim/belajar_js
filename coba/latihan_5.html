@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LATIHAN PRAKTIKUM</title>
+</head>
+<body>
+    <script>
+        function tekan() {
+            var noq = (document.data.no.value);
+            document.data.ono.value = noq;
+            var namaq = (document.data.nama.value);
+            document.data.onama.value = namaq;
+            var jkq = (document.data.jk.value);
+            document.data.ojk.value = jkq;
+            var agamaq = (document.data.agama.value);
+            document.data.oagama.value = agamaq;
+            var statusq = (document.data.status.value);
+            if (document.data.status.checked == true) {
+                ostatus = "Aktif";
+                } else {
+                    ostatus = "Tidak Aktif"
+                }
+            document.data.ostatus.value = statusq;
+            var kelasq = (document.data.kelas.value);
+            document.data.okelas.value = kelasq;
+            var alamatq = (document.data.alamat.value);
+            document.data.oalamat.value = alamatq
+        }
+    </script>
+    <form name="data">
+        <h2>Data Diri Siswa</h2>
+        <pre>
+            No. Absen       : <input type="text" size="25" name="no">
+            Nama Siswa      : <input type="text" size="25" name="nama">
+            Jenis Kelamin   : <select name="jk">
+                              <option value="Perempuan">Perempuan</option>
+                              <option value="Laki-Laki">Laki-Laki</option></select>
+            Agama           : <select name="agama">
+                              <option value="Katolik">Katolik</option>
+                              <option value="Islam">Islam</option>
+                              <option value="Kristen">Kristen</option>
+                              <option value="Hindu">Hindu</option>
+                              <option value="Budha">Budha</option>
+                              <option value="Khonghucu">Khonghucu</option></select>
+            Status          : <input type="radio" value="Aktif" name="status"> Aktif
+                              <input type="radio" value="Tidak Aktif" name="status"> Tidak Aktif
+            Kelas           : <select name="kelas">
+                              <option value="X RPL A">X RPL A</option>
+                              <option value="X RPL B">X RPL B</option>
+                              <option value="X RPL C">X RPL C</option></select>
+            alamat          : <textarea name="alamat" cols="70" rows="3"></textarea>
+        </pre>
+        <center>
+            <input type="button" value="Kirim" onclick="tekan()">
+            <input type="reset" value="Ulang">
+        </center>
+        <br>
+        <h2>Hasil Data Siswa Jurusan Rekayasa Perangkat Lunak (RPL)</h2>
+        <pre>
+            No. Absen           : <input type="text" size="25" name="ono">
+            Nama Siswa          : <input type="text" size="25" name="onama">
+            Jenis Kelamin       : <input type="text" size="25" name="ojk">
+            Agama               : <input type="text" size="25" name="oagama">
+            Status              : <input type="text" size="25" name="ostatus">
+            Kelas               : <input type="text" size="25" name="okelas">
+            Alamat              : <textarea name="oalamat" cols="70" rows="3"></textarea>
+        </pre>
+    </form>
+</body>
+</html>

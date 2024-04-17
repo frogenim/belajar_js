@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tugas</title>
+    </head>
+    <link rel="stylesheet" type="text/css" href="objek2.css">
+    <body>
+        
+        <h1>Tugas</h1>
+        <button id="addTask">Tambah Tugas</button>
+        <ul id="taskList"></ul>
+
+        <script>
+            //Membuat format array yang sudah berisi tugas
+            const task =[
+                { name: 'Selesaikan latihan dulu', dueDate: new Date(2023, 2, 15), completed: true},
+                { name: 'Membeli buku', dueDate: new Date(2023, 2, 17), completed: false },
+                { name: 'Menulis Javascript', dueDate: new Date(2023, 2, 18), completed: false }
+            ];
+
+            // Fungsi menambahkan Tugas baru ke dalam array
+        function addTask(name, dueDate) {
+            const task = { name, dueDate: new Date(dueDate), completed: false };
+            task.push(task);
+        }
+
+           // Fungsi untuk memasukkan tugas ke dalam array
+function renderTaskList() {
+    const taskList = document.getElementById('taskList');
+    taskList.innerHTML = '';
+
+    task.forEach((task, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <input type="checkbox" id="task-${index}" ${task.completed ? 'checked' : ''}>
+            <label for="task-${index}">${task.name}</label>
+            <span>${task.dueDate.toLocaleDateString()}</span>
+        `;
+        taskList.appendChild(li); 
+    });
+}
+
+// Fungsi untuk menandai kalau tugas sudah ditambahkan
+function markAsCompleted(index) {
+    task[index].completed =true;
+    renderTaskList();
+}
+
+// menambahkan prompt untuk menambahkan task
+document.getElementById('addTask').addEventListener('click', () => {
+    const name = prompt('Enter the task name:');
+    const dueDate = prompt('Enter the due date (YYYY-MM-DD):');
+    addTask(name, dueDate);
+    renderTaskList();
+});
+
+// code untuk render tugas agar bisa ditampilkan
+renderTaskList();
+
+//Menambahkan checkbox pada event listener saat di klik
+document.querySelectorAll('input[type="checkbox"]').forEach((checkbox, index) => {
+    checkbox.addEventListener('click', () => {
+        markAsCompleted(index);
+    });
+});
+        </script>
+    </body>
+</html>

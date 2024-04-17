@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HTML Form with Javascript</title>
+    </head>
+    <link rel="stylesheet" type="text/css" href="objek3.css">
+<body>
+    <form id="myForm">
+            <label for="name">Nama:</label><br>
+            <input type="text" name="name" id="name"><br>
+            <label for="email">Email:</label><br>
+            <input type="email" name="email" id="email"><br>
+            <input type="submit" value="submit">
+    </form>
+    <div id="output"></div>
+<script>
+    //Membuat Array
+    const formData = [];
+    
+    //Mengambil elemen dari Form
+    const form = document.getElementById("myForm");
+
+    //Elemen ditampilkan sebagai output
+    const output = document.getElementById("output");
+
+    //Menambahkan Eventlistener untuk mengambil data saat elemen dimasukkan
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        //Mengambil data dari
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+
+        // data tersebut dijadikan objek
+        const formObject = {
+            name: name,
+            email: email
+        };
+
+        //Objek dijadikan array
+        formData.push(formObject);
+
+        //Merubah array menjadi string
+        const formDataString = JSON.stringify(formData);
+
+        // Menampilkan data
+        output.textContent = Output: ${formDataString};
+        });
+</script>
+</body>
+</html>

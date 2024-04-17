@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Purchase Form</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    hr {
+      width: 100%;
+      border: none; /* Menghapus garis bawaan */
+      border-top: 2px solid #007bff; /* Menambahkan garis dengan warna biru (#007bff) dan ketebalan 2px */
+      margin: 20px 0; /* Memberikan margin di atas dan bawah garis */
+      height: 1px;
+    }
+
+    #container {
+      text-align: center;
+    }
+
+    h1 {
+      color: #0e1823;
+      margin-top: 5px;
+    }
+
+    h2 {
+      color: #007bff;
+      margin-top: 5px;
+    }
+
+    form {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      width: 400px;
+      text-align: left;
+      margin-top: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      color: #555;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: calc(100% - 16px);
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus {
+      outline: none;
+      border-color: # ;
+    }
+
+    button[type="submit"],
+    button[type="reset"] {
+      width: 45%;
+      padding: 7px;
+      background-color: #007bff;
+      border: none;
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-right: 4%;
+    }
+
+    button[type="submit"]:hover,
+    button[type="reset"]:hover {
+      background-color: #0056b3;
+    }
+
+    #result {
+      display: none; /* Defaultnya disembunyikan */
+      margin-left: 50px;
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #f7f7f7;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 400px;
+    }
+
+    #result h2 {
+      color: #007bff;
+      margin-bottom: 5px;
+      margin-top: 5px;
+    }
+
+    #result p {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <hr>
+    <h1>SMK Negeri 4 Malang</h1>
+    <hr>
+    <form id="purchaseForm">
+      <h2>Pembelian Buku Siswa</h2>
+      <label for="class">Kelas:</label>
+      <input type="text" id="class" name="class" required /><br />
+      <label for="subject">Pelajaran:</label>
+      <input type="text" id="subject" name="subject" required /><br />
+      <label for="book">Jenis Buku:</label>
+      <input type="text" id="book" name="book" required /><br />
+      <label for="numberOfBooks">Jumlah Buku:</label>
+      <input type="number" id="numberOfBooks" name="numberOfBooks" min="1" required /><br />
+      <button type="submit">Submit</button>
+      <button type="reset">Reset</button>
+    </form>
+  </div>
+  <div id="result"></div>
+  <script>
+    const purchaseForm = document.getElementById("purchaseForm");
+    const result = document.getElementById("result");
+
+    purchaseForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const classInput = purchaseForm.elements["class"];
+      const subjectInput = purchaseForm.elements["subject"];
+      const bookInput = purchaseForm.elements["book"];
+      const numberOfBooksInput = purchaseForm.elements["numberOfBooks"];
+
+      if (
+        !classInput.value ||
+        !subjectInput.value ||
+        !bookInput.value ||
+        !numberOfBooksInput.value
+      ) {
+        alert("Please fill out all the fields");
+        return;
+      }
+
+      const classValue = classInput.value;
+      const subjectValue = subjectInput.value;
+      const bookValue = bookInput.value;
+      const numberOfBooksValue = parseInt(numberOfBooksInput.value);
+      const pricePerBookInRupiah = 205500; // Harga per buku dalam Rupiah
+      const discountPercentage = 10; // Persentase diskon
+
+      const subtotal = numberOfBooksValue * pricePerBookInRupiah;
+      const discount = subtotal * (discountPercentage / 100);
+      const total = subtotal - discount;
+
+      result.innerHTML = `
+        <h2>Result</h2>
+        <p>Kelas: ${classValue}</p>
+        <p>Pelajaran: ${subjectValue}</p>
+        <p>Jenis Buku: ${bookValue}</p>
+        <p>Jumlah Buku: ${numberOfBooksValue}</p>
+        <p>Subtotal: Rp${subtotal.toLocaleString("id-ID")}</p>
+        <p>Diskon: Rp${discount.toLocaleString("id-ID")}</p>
+        <p>Total: Rp${total.toLocaleString("id-ID")}</p>
+      `;
+
+      result.style.display = "block"; // Menampilkan container result
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+</head>
+<link rel="stylesheet" type="text/css" href="objek.css">
+<body>
+    <h1>Calculator</h1>
+    <form id="calculatorForm">
+        <label for="nomor1">Nomor ke-1:</label>
+        <input type="number" id="nomor1" required>
+        <br>
+        <label for="nomor2">Nomor ke-2:</label>
+        <input type="number" id="nomor2" required>
+        <br>
+        <label for="operasi">Operasi:</label>
+        <select id="operasi" required>
+            <option value="tambah">Penambahan</option>
+            <option value="kurang">Pengurangan</option>
+            <option value="kali">Perkalian</option>
+            <option value="bagi">Pembagian</option>
+        </select>
+        <br>
+        <button type="submit">Hasil</button>
+    </form>
+    <p id="result"></p>
+    <script>
+        const calculatorForm = document.getElementById('calculatorForm');
+        const result = document.getElementById('result');
+
+        calculatorForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const nomor1 = parseFloat(document.getElementById('nomor1').value);
+            const nomor2 = parseFloat(document.getElementById('nomor2').value);
+            const operasi = document.getElementById('operasi').value;
+            let hasilKalkulasi;
+
+            switch (operasi) {
+                case 'tambah':
+                    hasilKalkulasi = nomor1 + nomor2;
+                    break;
+                case 'kurang':
+                    hasilKalkulasi = nomor1 - nomor2;
+                    break;
+                case 'kali':
+                    hasilKalkulasi = nomor1 * nomor2;
+                    break;
+                case 'bagi':
+                    if (nomor2 === 0) {
+                        alert('Tidak bisa dibagi 0.');
+                        return;
+                    }
+                    hasilKalkulasi = nomor1 / nomor2;
+                    break;
+                default:
+                    alert('Perhitungan Salah.');
+                    return;
+            }
+
+            result.textContent = `Result: ${hasilKalkulasi}`;
+        });
+    </script>
+</body>
+</html>

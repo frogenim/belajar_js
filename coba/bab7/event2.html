@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+</head>
+<link rel="stylesheet" type="text/css" href="event2.css">
+<body>
+    <form id="loginForm">
+        <label for="username">Username:</label><br>
+        <input type="text" name="username" id="username"><br>
+        <label for="password">Password:</label><br>
+        <input type="password" name="password" id="password"><br>
+        <input type="submit" value="Submit">
+    </form>
+    <div class="message"></div>
+    <script>
+        //Mouse event
+        const messageDiv = document.getElementById('message');
+        const loginForm = document.getElementById('loginForm');
+        loginForm.addEventListener('mouseover', () => {
+            messageDiv.textContent = 'Move your mouse over the form!';
+        });
+        //Keyboard event
+        const usernameInput = document.getElementById('username');
+        usernameInput.addEventListener('keydown', () => {
+            messageDiv.textContent = 'You pressed a key in the username field!';
+        });
+        //Form event
+        loginForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            if (username === 'admin' && password === 'password') {
+                messageDiv.textContent = 'Login successful!';
+            } else {
+                messageDiv.textContent = 'Login failed. Please check your username and password.';
+            }
+        })
+    </script>
+</body>
+</html>

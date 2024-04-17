@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LATIHAN PRAKTIKUM</title>
+    <script src="isi.js"></script>
+</head>
+<body>
+    <script lang="JavaScript">
+        var quis = prompt("Nilai Quis: ");
+        var tugas = prompt("Nilai Tugas: ");
+        var uts = prompt("Nilai UTS: ");
+        var uas = prompt("Nilai UAS: ");
+        var grade = "";
+        var ket = "";
+        var na = (0.10*quis)+(0.20*tugas)+(0.30*uts)+(0.40*uas);
+
+        if((na > 80) && (na <=100))
+        {
+            grade = "A";
+            ket = "Lulus dengan Sangat Baik";
+        } 
+        else if ((na > 68) && (na <=80))
+        {
+            grade = "B";
+            ket = "Lulus dengan Baik";
+        } 
+        else if ((na > 55) && (na <=68))
+        {
+            grade = "C";
+            ket = "Lulus dengan cukup";
+        } 
+        else if ((na > 38) && (na <=55))
+        {
+            grade = "D";
+            ket = "Lulus dengan Kurang";
+        } 
+        else 
+        {
+            grade = "E";
+            ket = "Tidak Lulus";
+        } 
+        document.write("<H2>MENGHITUNG NILAI HASIL BELAJAR</H2>");
+        document.write("<H3>Nilai Anda:" + na + "<br>");
+        document.write("Grade Anda: " + grade + "<br>");
+        document.write("Keterangan: " + ket);
+    </script>
+</body>
+</html>

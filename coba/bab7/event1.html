@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Example</title>
+</head>
+<link rel="stylesheet" type="text/css" href="event1.css">
+<body>
+    <form id="myform">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" name="name" id="name">
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email">
+        </div>
+        <input type="submit" value="Submit">
+    </form>
+    <div class="output"></div>
+    <script>
+        const form = document.getElementById("myForm");
+        const output = document.getElementById("output");
+
+        //Add a mouse event listener to the form
+        form.addEventListener("click", function(event) {
+            if (event.target.tagName === "INPUT") {
+                output.textContent = `You are typing in the ${event.target.name} input field`;
+            }
+        });
+
+        //Add a submit event listener to the form 
+        form.addEventListener("submit", function(event) {
+            event.preventDefault(); //Prevent theform from submitting normally
+
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+
+            output.textContent = `Name: ${name}\nEmail: ${email}`;
+        });
+    </script>
+</body>
+</html>
