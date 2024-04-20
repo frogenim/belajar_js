@@ -1,68 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Penjualan Produk</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f2f2f2;
+      }
+
+      #header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      #header h1 {
+        color: #007bff;
+      }
+
+      #formWrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 400px;
+        padding: 20px;
+        margin: auto; 
+      }
+
+      #productSalesForm {
+        width: 100%;
+        background-color: #fff;
+        border: 2px solid #007bff;
+        padding: 30px; 
+        border-radius: 5px; 
+        margin-bottom: 20px; 
+      }
+
+      input[type="text"],
+      input[type="date"],
+      input[type="number"] {
+        width: calc(
+          100% - 12px
+        ); 
+        margin-bottom: 10px; 
+        padding: 8px; 
+        border: 1px solid #ccc; 
+        border-radius: 5px; 
+        box-sizing: border-box; 
+      }
+
+      #orderProof {
+        display: none;
+        border: 2px solid #007bff;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px; 
+        width: 420px;
+      }
+
+      #orderProof h2 {
+        margin-top: 0;
+        color: #007bff; 
+      }
+
+      #orderProof p {
+        margin-bottom: 5px;
+        color: #333; 
+      }
+
+      #orderProofItemName,
+      #orderProofPurchaseDate,
+      #orderProofNumItems,
+      #orderProofItemPrice,
+      #orderProofTotalPurchase {
+        font-weight: bold; 
+      }
+
+      button {
+        background-color: #007bff; 
+        color: #fff; 
+        padding: 10px 20px; 
+        border: none; 
+        border-radius: 5px; 
+        cursor: pointer; 
+        width: 100%;
+        margin-bottom: 10px; 
+      }
+
+      button:hover {
+        background-color: #0056b3; 
+      }
+    </style>
 </head>
 <body>
-    <form id="productSalesForm">
-        <label for="itemName">Name of the item:</label><br>
-        <input type="text" id="itemName" name="itemName" oninput="checkItemNameLength(this.value)"><br>
-        <div id="itemNameWarning" style="color:red;display:none;">*The length of the name must be more than 2 characters</div>
-        <label for="purchaseDate">Date of purchase:</label><br>
-        <input type="date" id="purchaseDate" name="purchaseDate"><br>
-        <label for="numItems">Quantity of items:</label><br>
-        <input type="number" id="numItems" name="numItems" oninput="calculateTotalPurchase()"><br>
-        <label for="itemPrice">Price of items (in rupiah):</label><br>
-        <input type="number" id="itemPrice" name="itemPrice" oninput="calculateTotalPurchase()"><br>
-        <label for="totalPurchase">Total purchase:</label><br>
-        <input type="number" id="totalPurchase" name="totalPurchase" readonly><br>
-        <button type="button" onclick="printOrder()">Order</button>
-      </form>
-      
-      <div id="orderProof" style="display:none;">
-        <h2>Order Proof</h2>
-        <p>Name of the item: <span id="orderProofItemName"></span></p>
-        <p>Date of purchase: <span id="orderProofPurchaseDate"></span></p>
-        <p>Quantity of items: <span id="orderProofNumItems"></span></p>
-        <p>Price of items: <span id="orderProofItemPrice"></span></p>
-        <p>Total purchase: <span id="orderProofTotalPurchase"></span></p>
-      </div>
-      
-      <script>
-        function checkItemNameLength(itemName) {
-          if (itemName.length < 2) {
-            document.getElementById('itemNameWarning').style.display = 'block';
-            document.getElementById('itemName').style.borderColor = 'red';
-          } else {
-            document.getElementById('itemNameWarning').style.display = 'none';
-            document.getElementById('itemName').style.borderColor = 'green';
-          }
+    <div id="header">
+        <h1>Input Penjualan Produk</h1>
+    </div>
+
+    <div id="formWrapper">
+        <form id="productSalesForm">
+            <label for="itemName">Nama barang:</label><br />
+            <input
+              type="text"
+              id="itemName"
+              name="itemName"
+              oninput="checkItemNameLength(this.value)"
+            /><br />
+            <div id="itemNameWarning" style="color: red; display: none">
+              *The length of the name must be more than 2 characters
+            </div>
+            <label for="purchaseDate">Tanggal barang:</label><br />
+            <input type="date" id="purchaseDate" name="purchaseDate" /><br />
+            <label for="numItems">Jumlah barang:</label><br />
+            <input
+              type="number"
+              id="numItems"
+              name="numItems"
+              oninput="calculateTotalPurchase()"
+            /><br />
+            <label for="itemPrice">Harga barang (Rp.):</label><br />
+            <input
+              type="number"
+              id="itemPrice"
+              name="itemPrice"
+              oninput="calculateTotalPurchase()"
+            /><br />
+            <label for="totalPurchase">Total pembelian:</label><br />
+            <input
+              type="number"
+              id="totalPurchase"
+              name="totalPurchase"
+              readonly
+            /><br />
+            <button type="button" onclick="printOrder()">Order</button>
+        </form>
+
+        <div id="orderProof">
+            <h2>Result</h2>
+            <p>Nama barang: <span id="orderProofItemName"></span></p>
+            <p>Tanggal beli: <span id="orderProofPurchaseDate"></span></p>
+            <p>Jumlah barang: <span id="orderProofNumItems"></span></p>
+            <p>Harga barang (Rp.): <span id="orderProofItemPrice"></span></p>
+            <p>Total pembelian: <span id="orderProofTotalPurchase"></span></p>
+        </div>
+    </div>
+
+    <script>
+      function checkItemNameLength(itemName) {
+        if (itemName.length < 2) {
+          document.getElementById("itemNameWarning").style.display = "block";
+          document.getElementById("itemName").style.borderColor = "red";
+        } else {
+          document.getElementById("itemNameWarning").style.display = "none";
+          document.getElementById("itemName").style.borderColor = "green";
         }
-      
-        function calculateTotalPurchase() {
-          var numItems = document.getElementById('numItems').value;
-          var itemPrice = document.getElementById('itemPrice').value;
-          var totalPurchase = numItems * itemPrice;
-          document.getElementById('totalPurchase').value = totalPurchase;
-        }
-      
-        function printOrder() {
-          var itemName = document.getElementById('itemName').value;
-          var purchaseDate = document.getElementById('purchaseDate').value;
-          var numItems = document.getElementById('numItems').value;
-          var itemPrice = document.getElementById('itemPrice').value;
-          var totalPurchase = document.getElementById('totalPurchase').value;
-      
-          document.getElementById('orderProofItemName').textContent = itemName;
-          document.getElementById('orderProofPurchaseDate').textContent = purchaseDate;
-          document.getElementById('orderProofNumItems').textContent = numItems;
-          document.getElementById('orderProofItemPrice').textContent = itemPrice;
-          document.getElementById('orderProofTotalPurchase').textContent = totalPurchase;
-      
-          document.getElementById('orderProof').style.display = 'block';
-        }
-      </script>
+      }
+
+      function calculateTotalPurchase() {
+        var numItems = document.getElementById("numItems").value;
+        var itemPrice = document.getElementById("itemPrice").value;
+        var totalPurchase = numItems * itemPrice;
+        document.getElementById("totalPurchase").value = totalPurchase;
+      }
+
+      function printOrder() {
+        var itemName = document.getElementById("itemName").value;
+        var purchaseDate = document.getElementById("purchaseDate").value;
+        var numItems = document.getElementById("numItems").value;
+        var itemPrice = document.getElementById("itemPrice").value;
+        var totalPurchase = document.getElementById("totalPurchase").value;
+
+        document.getElementById("orderProofItemName").textContent = itemName;
+        document.getElementById("orderProofPurchaseDate").textContent =
+          purchaseDate;
+        document.getElementById("orderProofNumItems").textContent = numItems;
+        document.getElementById("orderProofItemPrice").textContent = itemPrice;
+        document.getElementById("orderProofTotalPurchase").textContent =
+          totalPurchase;
+
+        document.getElementById("orderProof").style.display = "block";
+      }
+    </script>
 </body>
 </html>
